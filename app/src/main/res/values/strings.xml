@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">GymAssistant</string>
+    <string name="title" >Title</string>
+    <string name="text" >Test</string>
 </resources>
