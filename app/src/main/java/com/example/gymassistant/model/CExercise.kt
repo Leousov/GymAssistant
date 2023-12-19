@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "exercise")
 data class CExercise(
     @PrimaryKey
-    var id: String? = "",
+    var id: String = "",
     @ColumnInfo
     var workout_id: String? = "",
     @ColumnInfo

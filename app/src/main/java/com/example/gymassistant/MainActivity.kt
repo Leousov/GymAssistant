@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 if (index < 0){
-                    dataset.add(CWorkout(id, title, text, user_id))
+                    dataset.add(CWorkout(id!!, title, text, user_id))
                     index = dataset.size -1
                 }
                 customAdapter.notifyItemChanged(index)
