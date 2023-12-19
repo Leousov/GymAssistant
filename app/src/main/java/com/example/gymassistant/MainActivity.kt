@@ -22,9 +22,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val dataset = mutableListOf<CWorkout>(
-            CWorkout("Ноги","комплекс упражнений на ноги", "132", user_id),
-            CWorkout("Руки","комплекс упражнений на руки", "142", user_id),
-            CWorkout("Тело","комплекс упражнений на тело", "137", user_id))
+            CWorkout("132", "Ноги", "комплекс упражнений на ноги", user_id),
+            CWorkout("142", "Руки", "комплекс упражнений на руки", user_id),
+            CWorkout("137", "Тело", "комплекс упражнений на тело", user_id))
         val customAdapter = CRecyclerViewAdapterWorkout(
             dataset
         ){workout ->
@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 if (index < 0){
-                    dataset.add(CWorkout(title, text, id, user_id))
+                    dataset.add(CWorkout(id, title, text, user_id))
                     index = dataset.size -1
                 }
                 customAdapter.notifyItemChanged(index)
