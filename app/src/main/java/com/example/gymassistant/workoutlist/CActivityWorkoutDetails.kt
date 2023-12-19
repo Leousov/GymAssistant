@@ -62,9 +62,9 @@ class CActivityWorkoutDetails : AppCompatActivity() { // Детали трени
 
 
         val dataset = mutableListOf<CExercise>( // Это уже идет список упражнений
-            CExercise("aaaa", id.toString(), "132" ),
-            CExercise("asd", id.toString(), "142"),
-            CExercise("ghjghj", id.toString(), "137")
+            CExercise("aaaa", id.toString(), "Приседания" ),
+            CExercise("asd", id.toString(), "Отжимания"),
+            CExercise("ghjghj", id.toString(), "Планка")
         )
         listAdapter = CRecyclerViewAdapterExercise(
             dataset, // соответствующий адаптер

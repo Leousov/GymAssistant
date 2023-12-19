@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@{workout.text}"
+            android:text="@{workout.title}"
             android:textSize="20sp" />
 
         <LinearLayout
@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@{workout.title}" />
+                android:text="@{workout.text}" />
 
             <Button
                 android:id="@+id/button_edit"

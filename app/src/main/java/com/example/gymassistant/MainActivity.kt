@@ -22,9 +22,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val dataset = mutableListOf<CWorkout>(
-            CWorkout("aaaa","asdasdasd", "132", user_id),
-            CWorkout("asd","sdg", "142", user_id),
-            CWorkout("ghjghj","qweqw", "137", user_id))
+            CWorkout("Ноги","комплекс упражнений на ноги", "132", user_id),
+            CWorkout("Руки","комплекс упражнений на руки", "142", user_id),
+            CWorkout("Тело","комплекс упражнений на тело", "137", user_id))
         val customAdapter = CRecyclerViewAdapterWorkout(
             dataset
         ){workout ->
