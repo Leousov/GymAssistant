@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.gymassistant.dao.IDAOExercise
+import com.example.gymassistant.dao.IDAOWorkout
 import com.example.gymassistant.model.CExercise
 import com.example.gymassistant.model.CWorkout
 
@@ -12,6 +14,8 @@ import com.example.gymassistant.model.CWorkout
     version = 1
 )
 abstract class CDatabase : RoomDatabase() {
+    abstract fun daoExercise(): IDAOExercise
+    abstract fun daoWorkout(): IDAOWorkout
     companion object {
         @Volatile
         private var INSTANCE: CDatabase? = null
