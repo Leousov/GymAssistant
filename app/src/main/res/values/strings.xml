@@ -1,5 +1,15 @@
 <resources>
     <string name="app_name">GymAssistant</string>
     <string name="title">Title</string>
-    <string name="text">Test</string>
+    <string name="text">Text</string>
+    <string name="save">Save</string>
+    <string name="close">Close</string>
+    <string name="delete">Delete</string>
+    <string name="name">Name</string>
+    <string name="description_of_exercise">Description of exercise</string>
+    <string name="duration_of_exercise">Duration of exercise</string>
+    <string name="num_of_sets">Num of sets</string>
+    <string name="weight_of_equipment">Weight of equipment</string>
+    <string name="times_per_set">Times per set</string>
+    <string name="edit">Edit</string>
 </resources>

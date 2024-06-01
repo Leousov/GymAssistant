@@ -5,32 +5,40 @@ import com.example.gymassistant.CDatabase
 import com.example.gymassistant.model.CExercise
 import kotlinx.coroutines.flow.Flow
 
+// Репозиторий для работы с таблицей упражнений в базе данных
 class CRepositoryExercise (
     context : Context
 ) {
+    // Получаем экземпляр базы данных
     private val db = CDatabase.getDatabase(context)
-    private val daoExercise= db.daoExercise()
+    // Получаем DAO для работы с таблицей упражнений
+    private val daoExercise = db.daoExercise()
 
+    // Функция для получения всех упражнений из базы данных в виде потока
     fun getAll(): Flow<List<CExercise>> {
         return daoExercise.getAll()
     }
+
+    // Функция для получения упражнения по его ID в виде потока
     fun getById(
         id : String
-    ) : Flow<CExercise?>
-    {
+    ) : Flow<CExercise?> {
         return daoExercise.getById(id)
     }
+
+    // Функция для вставки нового упражнения в базу данных
+    // Вызов этой функции должен быть выполнен в корутине
     suspend fun insert(
-        land: CExercise
-    )
-    {
-        daoExercise.insert(land)
+        exercise: CExercise
+    ) {
+        daoExercise.insert(exercise)
     }
 
+    // Функция для удаления упражнения из базы данных
+    // Вызов этой функции должен быть выполнен в корутине
     suspend fun delete(
-        land: CExercise
-    )
-    {
-        daoExercise.delete(land)
+        exercise: CExercise
+    ) {
+        daoExercise.delete(exercise)
     }
 }

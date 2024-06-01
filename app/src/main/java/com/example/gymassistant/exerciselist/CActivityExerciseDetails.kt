@@ -1,29 +1,31 @@
 package com.example.gymassistant.exerciselist
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.gymassistant.R
+import androidx.appcompat.app.AppCompatActivity
 import com.example.gymassistant.databinding.ActivityCexerciseDetailsBinding
 import com.example.gymassistant.workoutlist.getRandomString
 
+// Основной класс активности для отображения и редактирования деталей упражнения
 class CActivityExerciseDetails : AppCompatActivity() {
-    private var id: String?= null
-    private var workout_id: String?= null
-    private var name: String? = null
-    private var description: String? = ""
-    private var duration: Int? = -1
-    private var num_sets: Int? = -1
-    private var weight: Double? = -1.0
-    private var times_per_set: Int? = -1
-    private lateinit var binding: ActivityCexerciseDetailsBinding
+    private var id: String? = null // Идентификатор упражнения
+    private var workout_id: String? = null // Идентификатор тренировки
+    private var name: String? = null // Название упражнения
+    private var description: String? = "" // Описание упражнения
+    private var duration: Int? = -1 // Продолжительность упражнения
+    private var num_sets: Int? = -1 // Количество подходов
+    private var weight: Double? = -1.0 // Вес
+    private var times_per_set: Int? = -1 // Количество повторений в подходе
+    private lateinit var binding: ActivityCexerciseDetailsBinding // Переменная для биндинга
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityCexerciseDetailsBinding.inflate(layoutInflater) // Делаем биндинг
-        setContentView(binding.root)
+        binding = ActivityCexerciseDetailsBinding.inflate(layoutInflater) // Инициализация биндинга
+        setContentView(binding.root) // Установка содержимого экрана
 
-        var bundle = intent.extras // Сохраняем пришедшие значения
-        bundle?.let{
+        // Получаем данные из Intent (если они были переданы)
+        val bundle = intent.extras
+        bundle?.let {
             id = bundle.getString("id").toString()
             workout_id = bundle.getString("workout_id").toString()
             name = bundle.getString("name").toString()
@@ -33,8 +35,11 @@ class CActivityExerciseDetails : AppCompatActivity() {
             weight = bundle.getString("weight")?.toDouble() ?: -1.0
             times_per_set = bundle.getString("times_per_set")?.toInt() ?: -1
         }
-        id = id?: getRandomString(32) // Создаем id если нужно
-        // выставляем нужные значения на поля
+
+        // Создаем id, если его не было передано
+        id = id ?: getRandomString(32)
+
+        // Заполняем поля данными
         binding.textViewname.editText?.setText(name)
         binding.textViewdescription.editText?.setText(description)
         binding.textViewduration.editText?.setText(duration.toString())
@@ -42,7 +47,8 @@ class CActivityExerciseDetails : AppCompatActivity() {
         binding.textViewweight.editText?.setText(weight.toString())
         binding.textViewTimesPerSet.editText?.setText(times_per_set.toString())
 
-        binding.buttonSave.setOnClickListener { // задаем слушатель для кнопки
+        // Обрабатываем нажатие кнопки "Сохранить"
+        binding.buttonSave.setOnClickListener {
             val intent = Intent()
             intent.putExtra("id", id.toString())
             intent.putExtra("workout_id", workout_id.toString())
@@ -52,14 +58,14 @@ class CActivityExerciseDetails : AppCompatActivity() {
             intent.putExtra("num_sets", binding.textViewnumSets.editText?.text.toString())
             intent.putExtra("weight", binding.textViewweight.editText?.text.toString())
             intent.putExtra("times_per_set", binding.textViewTimesPerSet.editText?.text.toString())
-            setResult(RESULT_OK, intent)
-            finish()
-        }
-        binding.buttonCancel.setOnClickListener {// на закрытие
-            setResult(RESULT_CANCELED)
-            finish()
+            setResult(RESULT_OK, intent) // Устанавливаем результат и возвращаем данные
+            finish() // Закрываем активность
         }
 
-
+        // Обрабатываем нажатие кнопки "Отмена"
+        binding.buttonCancel.setOnClickListener {
+            setResult(RESULT_CANCELED) // Устанавливаем результат отмены
+            finish() // Закрываем активность
+        }
     }
 }

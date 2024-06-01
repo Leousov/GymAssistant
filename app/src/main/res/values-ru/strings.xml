@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Помощник для зала</string>
+    <string name="title">Заголовок</string>
+    <string name="text">Текст</string>
+    <string name="save">Сохранить</string>
+    <string name="close">Закрыть</string>
+    <string name="delete">Удалить</string>
+    <string name="name">Имя</string>
+    <string name="description_of_exercise">Описание упражнения</string>
+    <string name="duration_of_exercise">Длительность упражнения</string>
+    <string name="num_of_sets">Количество подходов</string>
+    <string name="weight_of_equipment">Вес оборудования</string>
+    <string name="times_per_set">Количество подходов</string>
+    <string name="edit">Редактировать</string>
+</resources>

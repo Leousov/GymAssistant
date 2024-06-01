@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_marginTop="8dp"
-            android:hint="Name"
+            android:hint="@string/name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:hint="Description of exercise"
+            android:hint="@string/description_of_exercise"
             app:layout_constraintTop_toBottomOf="@+id/textViewname"
             app:layout_marginBaseline="5dp"
             tools:ignore="MissingConstraints">
@@ -56,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:hint="Duration of exercise"
+            android:hint="@string/duration_of_exercise"
             app:layout_constraintTop_toBottomOf="@+id/textViewdescription"
             app:layout_marginBaseline="5dp"
             tools:ignore="MissingConstraints">
@@ -73,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:hint="Num of sets"
+            android:hint="@string/num_of_sets"
             app:layout_constraintTop_toBottomOf="@+id/textViewduration"
             app:layout_marginBaseline="5dp"
             tools:ignore="MissingConstraints">
@@ -90,7 +90,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:hint="Weight of equipment"
+            android:hint="@string/weight_of_equipment"
             app:layout_constraintTop_toBottomOf="@+id/textViewnum_sets"
             app:layout_marginBaseline="5dp"
             tools:ignore="MissingConstraints">
@@ -107,7 +107,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:hint="Times per set"
+            android:hint="@string/times_per_set"
             app:layout_constraintTop_toBottomOf="@+id/textViewweight"
             app:layout_marginBaseline="5dp"
             tools:ignore="MissingConstraints">
@@ -125,7 +125,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:text="Save"
+            android:text="@string/save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

@@ -4,23 +4,30 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+// Определение сущности упражнения для базы данных
 @Entity(tableName = "exercise")
 data class CExercise(
     @PrimaryKey
-    var id: String = "",
+    var id: String = "", // Идентификатор упражнения (первичный ключ)
+
     @ColumnInfo
-    var workout_id: String? = "",
+    var workout_id: String? = "", // Идентификатор тренировки, к которой относится упражнение
+
     @ColumnInfo
-    var name: String? = "",
+    var name: String? = "", // Название упражнения
+
     @ColumnInfo
-    var description: String? = "",
+    var description: String? = "", // Описание упражнения
+
     @ColumnInfo
-    var duration: Int? = -1,
+    var duration: Int? = -1, // Продолжительность упражнения
+
     @ColumnInfo
-    var num_sets: Int? = -1,
+    var num_sets: Int? = -1, // Количество подходов
+
     @ColumnInfo
-    var weight: Double? = -1.0,
+    var weight: Double? = -1.0, // Вес
+
     @ColumnInfo
-    var times_per_set: Int? = -1
-){
-}
+    var times_per_set: Int? = -1 // Количество повторений в подходе
+)
