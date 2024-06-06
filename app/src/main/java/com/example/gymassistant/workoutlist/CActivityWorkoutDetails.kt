@@ -109,13 +109,13 @@ class CActivityWorkoutDetails : AppCompatActivity() {
 
             val bundle = result.data?.extras
             bundle?.let {
-                val id = it.getString("id")
-                val workout_id = it.getString("workout_id")
-                val name = it.getString("name")
-                val description = it.getString("description")
-                val duration = it.getString("duration")
-                val num_sets = it.getString("num_sets")
-                val weight = it.getString("weight")
+                val id =            it.getString("id")
+                val workout_id =    it.getString("workout_id")
+                val name =          it.getString("name")
+                val description =   it.getString("description")
+                val duration =      it.getString("duration")
+                val num_sets =      it.getString("num_sets")
+                val weight =        it.getString("weight")
                 val times_per_set = it.getString("times_per_set")
                 var index = -1
                 dataset.forEachIndexed { ind, exercise ->

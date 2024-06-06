@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater) // Инициализация биндинга
         setContentView(binding.root) // Установка содержимого экрана
+//        val repW =
 
         // Создание начального набора данных для списка тренировок
         val dataset = mutableListOf<CWorkout>(
