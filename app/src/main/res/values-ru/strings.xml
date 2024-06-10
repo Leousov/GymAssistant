@@ -13,4 +13,6 @@
     <string name="weight_of_equipment">Вес оборудования</string>
     <string name="times_per_set">Количество подходов</string>
     <string name="edit">Изменить</string>
+    <string name="PARAM_ID">132</string>
+    <string name="INTERNAL_ERROR">Внутренняя ошибка</string>
 </resources>

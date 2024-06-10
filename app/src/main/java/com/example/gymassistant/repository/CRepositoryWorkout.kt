@@ -1,4 +1,4 @@
-package com.example.gymassistant.bd
+package com.example.gymassistant.repository
 
 import android.content.Context
 import com.example.gymassistant.CDatabase

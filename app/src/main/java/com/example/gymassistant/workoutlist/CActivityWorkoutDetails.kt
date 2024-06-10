@@ -3,14 +3,22 @@ package com.example.gymassistant.workoutlist
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.gymassistant.R
 import com.example.gymassistant.databinding.ActivityCworkoutDetailsBinding
 import com.example.gymassistant.exerciselist.CActivityExerciseDetails
 import com.example.gymassistant.exerciselist.CRecyclerViewAdapterExercise
 import com.example.gymassistant.model.CExercise
+import com.example.gymassistant.viewmodel.CViewModelWorkoutDetail
+import kotlinx.coroutines.launch
 
 // Класс активности для отображения и редактирования деталей тренировки
 class CActivityWorkoutDetails : AppCompatActivity() {
@@ -18,39 +26,66 @@ class CActivityWorkoutDetails : AppCompatActivity() {
     private var text: String? = null // Описание тренировки
     private var id: String? = null // Идентификатор тренировки
     private var user_id: String? = null // Идентификатор пользователя
-    private lateinit var binding: ActivityCworkoutDetailsBinding // Переменная для биндинга
     lateinit var resultLauncher: ActivityResultLauncher<Intent> // Лаунчер для получения результата из другой активности
     private lateinit var listAdapter: CRecyclerViewAdapterExercise // Адаптер для RecyclerView
-
+    private val viewModel  : CViewModelWorkoutDetail by viewModels() // Модель прдставления для тренировки
+    private lateinit var binding: ActivityCworkoutDetailsBinding // Переменная для биндинга
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCworkoutDetailsBinding.inflate(layoutInflater) // Инициализация биндинга
         setContentView(binding.root) // Установка содержимого экрана
-
+        binding.lifecycleOwner = this
         // Получаем данные из Intent (если они были переданы)
-        val bundle = intent.extras
-        bundle?.let {
-            title = it.getString("title")
-            text = it.getString("text")
-            id = it.getString("id")
-            user_id = it.getString("user_id")
+        if (!viewModel.initilized.value) {
+            intent.extras?.let {bundle ->
+                val id = bundle.getString(getString(R.string.PARAM_ID))?.let { tempId ->
+                    tempId
+                }
+                //Если идентификатор не указан,
+                //выдаём сообщение
+                id?:run{
+                    //Можно сообщение прокрутить через модель представления.
+                    Toast.makeText(
+                        this@CActivityWorkoutDetails,
+                        getString(R.string.INTERNAL_ERROR),
+                        Toast.LENGTH_LONG
+                    )
+                        .show()
+                    return@let
+                }
+
+                //Передаём начальные данные в модель представления.
+                viewModel.setItem(
+                    id = id
+                )
+            }
         }
+        binding.viewModel = viewModel
+
+//        val bundle = intent.extras
+//        bundle?.let {
+//            title = it.getString("title")
+//            text = it.getString("text")
+//            id = it.getString("id")
+//            user_id = it.getString("user_id")
+//        }
 
         // Создаем id, если его не было передано
         id = id ?: getRandomString(32)
 
         // Заполняем поля данными
-        binding.textFieldTitle.editText?.setText(title)
-        binding.textFieldText.editText?.setText(text)
-
+//        binding.textFieldTitle.editText?.setText(title)
+//        binding.textFieldText.editText?.setText(text)
         // Обрабатываем нажатие кнопки "Сохранить"
         binding.buttonSave.setOnClickListener {
-            val intent = Intent()
-            intent.putExtra("title", binding.textFieldTitle.editText?.text.toString())
-            intent.putExtra("text", binding.textFieldText.editText?.text.toString())
-            intent.putExtra("id", id.toString())
-            intent.putExtra("user_id", user_id.toString())
-            setResult(RESULT_OK, intent) // Устанавливаем результат и возвращаем данные
+            if (!viewModel.save())
+                return@setOnClickListener
+//            val intent = Intent()
+//            intent.putExtra("title", binding.textFieldTitle.editText?.text.toString())
+//            intent.putExtra("text", binding.textFieldText.editText?.text.toString())
+//            intent.putExtra("id", id.toString())
+//            intent.putExtra("user_id", user_id.toString())
+//            setResult(RESULT_OK, intent) // Устанавливаем результат и возвращаем данные
             finish() // Закрываем активность
         }
 
@@ -66,6 +101,23 @@ class CActivityWorkoutDetails : AppCompatActivity() {
             intent.putExtra("id", id.toString())
             setResult(RESULT_CANCELED, intent)
             finish() // Закрываем активность
+        }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.message.collect { stringId ->
+                    if (stringId < 0)
+                        return@collect
+                    //При получении информации о сообщении,
+                    //выводим его на экран.
+                    Toast.makeText(
+                        this@CActivityWorkoutDetails,
+                        getString(stringId),
+                        Toast.LENGTH_LONG
+                    )
+                        .show()
+                }
+            }
         }
 
         // Создаем список упражнений (для примера)

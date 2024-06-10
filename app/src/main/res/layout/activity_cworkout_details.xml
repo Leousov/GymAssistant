@@ -6,6 +6,9 @@
         <variable
             name="workout"
             type="com.example.gymassistant.model.CWorkout" />
+        <variable
+            name="viewModel"
+            type="com.example.gymassistant.viewmodel.CViewModelWorkoutDetail" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
