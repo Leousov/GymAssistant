@@ -14,8 +14,8 @@ import kotlinx.coroutines.launch
 class CViewModelWorkoutList(
     application: Application
 ) : AndroidViewModel(application){
-    private val repositoryWorkout =
-        CRepositoryWorkout(application)
+
+    private val repositoryWorkout = CRepositoryWorkout(application)
     private var itemsFlow = MutableStateFlow<List<CWorkout>>(
         emptyList()
     )
