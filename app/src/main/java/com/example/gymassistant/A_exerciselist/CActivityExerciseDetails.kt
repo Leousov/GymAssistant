@@ -50,9 +50,13 @@ class CActivityExerciseDetails : AppCompatActivity() {
 
         if (!viewModel.initilized.value) {
             intent.extras?.let {bundle ->
-                val id = bundle.getString(getString(R.string.PARAM_ID))?.let { tempId ->
+                id = bundle.getString(getString(R.string.PARAM_ID))?.let { tempId ->
                     tempId
                 }
+                val workout_id = bundle.getString(getString(R.string.PARAM2_ID))?.let { tempId ->
+                    tempId
+                }
+
                 //Если идентификатор не указан,
                 //выдаём сообщение
                 id?:run{
@@ -68,7 +72,8 @@ class CActivityExerciseDetails : AppCompatActivity() {
 
                 //Передаём начальные данные в модель представления.
                 viewModel.setItem(
-                    id = id
+                    id = id!!,
+                    workout_id = workout_id!!
                 )
             }
         }

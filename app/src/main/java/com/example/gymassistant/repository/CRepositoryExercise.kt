@@ -18,6 +18,9 @@ class CRepositoryExercise (
     fun getAll(): Flow<List<CExercise>> {
         return daoExercise.getAll()
     }
+    fun getExercisesByWorkoutId(workout_id: String): Flow<List<CExercise>> {
+        return daoExercise.getExercisesByWorkoutId(workout_id)
+    }
 
     // Функция для получения упражнения по его ID в виде потока
     fun getById(

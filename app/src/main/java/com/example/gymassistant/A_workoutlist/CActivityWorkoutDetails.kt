@@ -8,6 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +17,7 @@ import com.example.gymassistant.A_exerciselist.CRecyclerViewAdapterExercise
 import com.example.gymassistant.R
 import com.example.gymassistant.databinding.ActivityCworkoutDetailsBinding
 import com.example.gymassistant.viewmodel.CViewModelExerciseList
+import com.example.gymassistant.viewmodel.CViewModelExerciseListFactory
 import com.example.gymassistant.viewmodel.CViewModelWorkoutDetail
 import kotlinx.coroutines.launch
 
@@ -28,7 +30,7 @@ class CActivityWorkoutDetails : AppCompatActivity() {
     lateinit var resultLauncher: ActivityResultLauncher<Intent> // Лаунчер для получения результата из другой активности
     private lateinit var listAdapter: CRecyclerViewAdapterExercise // Адаптер для RecyclerView
     private val viewModel  : CViewModelWorkoutDetail by viewModels() // Модель прдставления для тренировки
-    private val viewModel_exercise  : CViewModelExerciseList by viewModels() // Модель прдставления для тренировки
+    private lateinit var viewModel_exercise: CViewModelExerciseList  // Модель прдставления для тренировки
     private lateinit var binding: ActivityCworkoutDetailsBinding // Переменная для биндинга
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +41,7 @@ class CActivityWorkoutDetails : AppCompatActivity() {
         // Получаем данные из Intent (если они были переданы)
         if (!viewModel.initilized.value) {
             intent.extras?.let {bundle ->
-                val id = bundle.getString(getString(R.string.PARAM_ID))?.let { tempId ->
+                id = bundle.getString(getString(R.string.PARAM_ID))?.let { tempId ->
                     tempId
                 }
                 //Если идентификатор не указан,
@@ -57,7 +59,7 @@ class CActivityWorkoutDetails : AppCompatActivity() {
 
                 //Передаём начальные данные в модель представления.
                 viewModel.setItem(
-                    id = id
+                    id = id!!
                 )
             }
         }
@@ -129,6 +131,19 @@ class CActivityWorkoutDetails : AppCompatActivity() {
 //            CExercise("asd", id.toString(), "Отжимания"),
 //            CExercise("ghjghj", id.toString(), "Планка")
 //        )
+        id?.let { id ->
+            val factory = CViewModelExerciseListFactory(application, id)
+            viewModel_exercise = ViewModelProvider(this, factory).get(CViewModelExerciseList::class.java)
+        } ?: run {
+            // Если workoutId равен null, покажите сообщение об ошибке и завершите Activity
+            Toast.makeText(
+                this,
+                getString(R.string.INTERNAL_ERROR),
+                Toast.LENGTH_LONG
+            ).show()
+            finish()
+            return
+        }
 
         // Инициализация адаптера для RecyclerView
         listAdapter = CRecyclerViewAdapterExercise(
@@ -155,6 +170,7 @@ class CActivityWorkoutDetails : AppCompatActivity() {
                     CActivityExerciseDetails::class.java
                 )
                 intent.putExtra(getString(R.string.PARAM_ID), exercise.id.toString())
+                intent.putExtra(getString(R.string.PARAM2_ID), exercise.workout_id.toString())
                 resultLauncher.launch(intent)
             },
             //Обработчик удаления элемента.
@@ -213,10 +229,11 @@ class CActivityWorkoutDetails : AppCompatActivity() {
 //                listAdapter.notifyItemChanged(index) // Уведомляем адаптер об изменении элемента
 //            }
         }
-        // Установка слушателя на кнопку для добавления новой тренировки
+        // Установка слушателя на кнопку для добавления нового упражнения
         binding.button1.setOnClickListener {
             val intent = Intent(this, CActivityExerciseDetails::class.java)
             intent.putExtra(getString(R.string.PARAM_ID), getRandomString(32))
+            intent.putExtra(getString(R.string.PARAM2_ID), id)
             resultLauncher.launch(intent)
         }
         lifecycleScope.launch {

@@ -12,7 +12,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class CViewModelExerciseList(
-    application: Application
+    application: Application,
+    private val workoutId: String
 ) : AndroidViewModel(application){
 
     private val repositoryExercise = CRepositoryExercise(application)
@@ -23,8 +24,17 @@ class CViewModelExerciseList(
     init {
         viewModelScope.launch {
             repositoryExercise
-                .getAll()
+                .getExercisesByWorkoutId(workoutId)
                 .collect {newItems->
+                    itemsFlow.update { newItems }
+                }
+        }
+    }
+    fun loadExercises(workout_id: String) {
+        viewModelScope.launch {
+            repositoryExercise
+                .getExercisesByWorkoutId(workout_id)
+                .collect { newItems ->
                     itemsFlow.update { newItems }
                 }
         }

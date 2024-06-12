@@ -37,7 +37,7 @@ class CViewModelExerciseDetail(
     )
     val message: SharedFlow<Int>
             = _message.asSharedFlow()
-    fun setItem(id: String){
+    fun setItem(id: String, workout_id: String){
     viewModelScope.launch {
         repositoryExercise.getById(id).collect { exercise ->
                 exercise?.let{
@@ -52,6 +52,7 @@ class CViewModelExerciseDetail(
                 }
             }
         }
+        this@CViewModelExerciseDetail.workout_id.update { workout_id }
         _initilized.update { true }
     }
     fun save(): Boolean

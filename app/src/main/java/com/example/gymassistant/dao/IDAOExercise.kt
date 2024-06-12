@@ -21,6 +21,9 @@ interface IDAOExercise {
     fun getById(
         id: String
     ): Flow<CExercise>
+    @Query("SELECT * FROM exercise WHERE workout_id = :workout_id")
+    fun getExercisesByWorkoutId(workout_id: String): Flow<List<CExercise>>
+
 
     // Функция для вставки нового упражнения в базу данных
     // Если упражнение с таким ID уже существует, оно будет заменено (REPLACE)

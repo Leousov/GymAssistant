@@ -15,4 +15,5 @@
     <string name="edit">Изменить</string>
     <string name="PARAM_ID">id</string>
     <string name="INTERNAL_ERROR">Внутренняя ошибка</string>
+    <string name="PARAM2_ID">workout_id</string>
 </resources>
