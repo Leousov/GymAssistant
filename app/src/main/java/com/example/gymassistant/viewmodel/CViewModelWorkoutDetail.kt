@@ -3,9 +3,9 @@ package com.example.gymassistant.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.gymassistant.A_workoutlist.getRandomString
 import com.example.gymassistant.model.CWorkout
 import com.example.gymassistant.repository.CRepositoryWorkout
-import com.example.gymassistant.workoutlist.getRandomString
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow

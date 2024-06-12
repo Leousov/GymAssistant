@@ -12,6 +12,6 @@
     <string name="weight_of_equipment">Weight of equipment</string>
     <string name="times_per_set">Times per set</string>
     <string name="edit">Edit</string>
-    <string name="PARAM_ID" >workout_id</string>
+    <string name="PARAM_ID" >id</string>
     <string name="INTERNAL_ERROR" >Internal Error</string>
 </resources>

@@ -10,11 +10,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.gymassistant.A_workoutlist.CActivityWorkoutDetails
+import com.example.gymassistant.A_workoutlist.CRecyclerViewAdapterWorkout
+import com.example.gymassistant.A_workoutlist.getRandomString
 import com.example.gymassistant.databinding.ActivityMainBinding
 import com.example.gymassistant.viewmodel.CViewModelWorkoutList
-import com.example.gymassistant.workoutlist.CActivityWorkoutDetails
-import com.example.gymassistant.workoutlist.CRecyclerViewAdapterWorkout
-import com.example.gymassistant.workoutlist.getRandomString
 import kotlinx.coroutines.launch
 
 // Основная активность приложения

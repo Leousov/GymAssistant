@@ -1,17 +1,19 @@
-package com.example.gymassistant.exerciselist
+package com.example.gymassistant.A_exerciselist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gymassistant.databinding.ExericeListItemBinding
 import com.example.gymassistant.model.CExercise
 
 // Адаптер для отображения списка упражнений в RecyclerView
 class CRecyclerViewAdapterExercise(
-    private val dataset: MutableList<CExercise>,
+//    private val dataset: MutableList<CExercise>,
     private val clickListener: (exercise: CExercise) -> Unit,
     private val deleteListener: (exercise: CExercise) -> Unit
-) : RecyclerView.Adapter<CRecyclerViewAdapterExercise.ViewHolder>() {
+) : ListAdapter<CExercise, CRecyclerViewAdapterExercise.ViewHolder>(ExerciseDiffCallback()) {
 
     // ViewHolder для хранения и управления элементами списка
     class ViewHolder(
@@ -42,12 +44,21 @@ class CRecyclerViewAdapterExercise(
     }
 
     // Возвращаем количество элементов в списке
-    override fun getItemCount(): Int {
-        return dataset.size
-    }
+//    override fun getItemCount(): Int {
+//        return dataset.size
+//    }
 
     // Привязываем данные к ViewHolder'у для отображения на экране
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(dataset[position])
+        holder.bindItem(getItem(position))
+    }
+    class ExerciseDiffCallback : DiffUtil.ItemCallback<CExercise>() {
+        override fun areItemsTheSame(oldItem: CExercise, newItem: CExercise): Boolean {
+            return oldItem.id == newItem.id // Сравнение по уникальному идентификатору
+        }
+
+        override fun areContentsTheSame(oldItem: CExercise, newItem: CExercise): Boolean {
+            return oldItem == newItem // Сравнение по содержимому
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.gymassistant.workoutlist
+package com.example.gymassistant.A_workoutlist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

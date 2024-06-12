@@ -26,7 +26,7 @@ data class CExercise(
     var num_sets: Int? = -1, // Количество подходов
 
     @ColumnInfo
-    var weight: Double? = -1.0, // Вес
+    var weight: Int? = -1, // Вес
 
     @ColumnInfo
     var times_per_set: Int? = -1 // Количество повторений в подходе

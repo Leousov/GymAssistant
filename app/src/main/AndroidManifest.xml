@@ -13,10 +13,10 @@
         android:theme="@style/Theme.GymAssistant"
         tools:targetApi="31">
         <activity
-            android:name=".exerciselist.CActivityExerciseDetails"
+            android:name=".A_exerciselist.CActivityExerciseDetails"
             android:exported="false" />
         <activity
-            android:name=".workoutlist.CActivityWorkoutDetails"
+            android:name=".A_workoutlist.CActivityWorkoutDetails"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

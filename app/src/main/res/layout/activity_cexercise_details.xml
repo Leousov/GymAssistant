@@ -6,13 +6,26 @@
         <variable
             name="exercise"
             type="com.example.gymassistant.model.CExercise" />
+        <variable
+            name="viewModel"
+            type="com.example.gymassistant.viewmodel.CViewModelExerciseDetail" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".exerciselist.CActivityExerciseDetails">
+        tools:context=".A_exerciselist.CActivityExerciseDetails">
 
+
+        <Button
+            android:id="@+id/buttonDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/delete"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textViewname"
@@ -30,7 +43,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="text"
+                android:text="@={viewModel.name}"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -47,7 +61,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text|textMultiLine" />
+                android:inputType="text|textMultiLine"
+                android:text="@={viewModel.description}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,7 +79,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number|numberDecimal" />
+                android:inputType="number|numberDecimal"
+                app:mutableStateFlowText="@={viewModel.duration}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -81,7 +97,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number|numberDecimal" />
+                android:inputType="number|numberDecimal"
+                app:mutableStateFlowText="@={viewModel.num_sets}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -98,7 +115,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number|numberSigned" />
+                android:inputType="number|numberSigned"
+                app:mutableStateFlowText="@={viewModel.weight}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -115,7 +133,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number|numberDecimal" />
+                android:inputType="number|numberDecimal"
+                app:mutableStateFlowText="@={viewModel.times_per_set}"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
