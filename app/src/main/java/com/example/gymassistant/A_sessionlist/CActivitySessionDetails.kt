@@ -8,12 +8,16 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gymassistant.A_workoutlist.getRandomString
 import com.example.gymassistant.R
 import com.example.gymassistant.databinding.ActivityCsessionDetailsBinding
 import com.example.gymassistant.viewmodel.CViewModelSessionDetail
+import com.example.gymassistant.viewmodel.CViewModelSessionExerciseList
+import com.example.gymassistant.viewmodel.CViewModelSessionExerciseListFactory
 import kotlinx.coroutines.launch
 
 class CActivitySessionDetails : AppCompatActivity()  {
@@ -21,7 +25,9 @@ class CActivitySessionDetails : AppCompatActivity()  {
     private var workout_id: String? = null // Идентификатор тренировки
     lateinit var resultLauncher: ActivityResultLauncher<Intent>
     private val viewModel  : CViewModelSessionDetail by viewModels()
+    private lateinit var viewModel_exercise  : CViewModelSessionExerciseList
     private lateinit var binding: ActivityCsessionDetailsBinding
+    private lateinit var listAdapter: CRecyclerViewAdapterSessionExercise
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCsessionDetailsBinding.inflate(layoutInflater) // Инициализация биндинга
@@ -94,59 +100,63 @@ class CActivitySessionDetails : AppCompatActivity()  {
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
         }
-//
-//        id?.let { id ->
-//            val factory = CViewModelExerciseListFactory(application, id)
-//            viewModel_exercise = ViewModelProvider(this, factory).get(CViewModelExerciseList::class.java)
-//        } ?: run {
-//            // Если workoutId равен null, покажите сообщение об ошибке и завершите Activity
-//            Toast.makeText(
-//                this,
-//                getString(R.string.INTERNAL_ERROR),
-//                Toast.LENGTH_LONG
-//            ).show()
-//            finish()
-//            return
-//        }
-//
-//        // Инициализация адаптера для RecyclerView
-//        listAdapter = CRecyclerViewAdapterExercise(
-//            clickListener = {exercise ->
-//                exercise?:return@CRecyclerViewAdapterExercise
-//                val intent = Intent(
-//                    this,
-//                    CActivityExerciseDetails::class.java
-//                )
-//                intent.putExtra(getString(R.string.PARAM_ID), exercise.id.toString())
-//                intent.putExtra(getString(R.string.PARAM2_ID), exercise.workout_id.toString())
-//                resultLauncher.launch(intent)
-//            },
-//            //Обработчик удаления элемента.
-//            deleteListener = {exercise ->
-//                viewModel_exercise.deleteItem(exercise)
-//            }
-//        )
-//
-//        // Настройка RecyclerView
-//        binding.Recycler.adapter = listAdapter
-//        val mLayoutManager = LinearLayoutManager(this)
-//        binding.Recycler.layoutManager = mLayoutManager
-//
-//        // Регистрация обработчика результата активности
-//        resultLauncher = registerForActivityResult(
-//            ActivityResultContracts.StartActivityForResult()
-//        ) { result ->
-//        }
-//
-//        lifecycleScope.launch {
-//            repeatOnLifecycle(Lifecycle.State.STARTED) {
-//                viewModel_exercise.items.collect { items->
-//                    //При получении новой версии списка отправляем его в адаптер.
-//                    //Адаптер сам решает, какие элементы изменились,
-//                    //и информирует список по нужным элементам.
-//                    listAdapter.submitList(items)
-//                }
-//            }
-//        }
+
+        id?.let { id ->
+            workout_id?.let{workout_id ->
+                val factory = CViewModelSessionExerciseListFactory(application, workout_id, id)
+                viewModel_exercise = ViewModelProvider(this, factory).get(CViewModelSessionExerciseList::class.java)
+            }
+
+        } ?: run {
+            // Если workoutId равен null, покажите сообщение об ошибке и завершите Activity
+            Toast.makeText(
+                this,
+                getString(R.string.INTERNAL_ERROR),
+                Toast.LENGTH_LONG
+            ).show()
+            finish()
+            return
+        }
+
+        // Инициализация адаптера для RecyclerView
+        listAdapter = CRecyclerViewAdapterSessionExercise(
+            viewModel = viewModel_exercise,
+            ListenerUp = {session_exercise ->
+                if (session_exercise.sets_done!! < session_exercise.num_sets!!){
+                    session_exercise.sets_done = session_exercise.sets_done!! + 1
+                    viewModel_exercise.update(session_exercise)
+                    listAdapter.notifyDataSetChanged()
+                }
+            },
+            ListenerDown = {session_exercise ->
+                if (session_exercise.sets_done!! > 0) {
+                    session_exercise.sets_done = session_exercise.sets_done!! - 1
+                    viewModel_exercise.update(session_exercise)
+                    listAdapter.notifyDataSetChanged()
+                }
+            }
+        )
+
+        // Настройка RecyclerView
+        binding.Recycler2.adapter = listAdapter
+        val mLayoutManager = LinearLayoutManager(this)
+        binding.Recycler2.layoutManager = mLayoutManager
+
+        // Регистрация обработчика результата активности
+        resultLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+        }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel_exercise.items.collect { items->
+                    //При получении новой версии списка отправляем его в адаптер.
+                    //Адаптер сам решает, какие элементы изменились,
+                    //и информирует список по нужным элементам.
+                    listAdapter.submitList(items)
+                }
+            }
+        }
     }
 }

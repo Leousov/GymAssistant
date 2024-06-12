@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/border">
     <data>
         <variable
             name="exercise"
@@ -38,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text='@{exercise.num_sets &lt;= -1?"":exercise.num_sets.toString()}'
+                android:text='@{exercise.num_sets &lt;= -1?"Sets":"Sets: "+exercise.num_sets.toString()}'
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewName" />
@@ -48,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text='@{exercise.times_per_set &lt;= -1?"":  exercise.times_per_set.toString()}'
+                android:text='@{exercise.times_per_set &lt;= -1?"Times":"Times: "+exercise.times_per_set.toString()}'
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewNumSets" />

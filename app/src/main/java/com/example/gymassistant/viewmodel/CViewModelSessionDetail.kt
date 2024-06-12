@@ -42,8 +42,8 @@ class CViewModelSessionDetail(
                     this@CViewModelSessionDetail.workout_id.update { session.workout_id.toString() }
                 }
             }
-            this@CViewModelSessionDetail.workout_id.update { workout_id }
         }
+        this@CViewModelSessionDetail.workout_id.update { workout_id }
         viewModelScope.launch {
             repositoryWorkout.getById(workout_id).collect { workout ->
                 workout?.let{

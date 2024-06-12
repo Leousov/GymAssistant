@@ -43,11 +43,6 @@ class CRecyclerViewAdapterExercise(
         return ViewHolder(listItemBinding, clickListener, deleteListener)
     }
 
-    // Возвращаем количество элементов в списке
-//    override fun getItemCount(): Int {
-//        return dataset.size
-//    }
-
     // Привязываем данные к ViewHolder'у для отображения на экране
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItem(getItem(position))
