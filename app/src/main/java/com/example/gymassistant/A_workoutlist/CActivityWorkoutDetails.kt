@@ -16,9 +16,9 @@ import com.example.gymassistant.A_exerciselist.CActivityExerciseDetails
 import com.example.gymassistant.A_exerciselist.CRecyclerViewAdapterExercise
 import com.example.gymassistant.R
 import com.example.gymassistant.databinding.ActivityCworkoutDetailsBinding
-import com.example.gymassistant.viewmodel.CViewModelExerciseList
-import com.example.gymassistant.viewmodel.CViewModelExerciseListFactory
-import com.example.gymassistant.viewmodel.CViewModelWorkoutDetail
+import com.example.gymassistant.viewmodel.exercise.CViewModelExerciseList
+import com.example.gymassistant.viewmodel.exercise.CViewModelExerciseListFactory
+import com.example.gymassistant.viewmodel.workout.CViewModelWorkoutDetail
 import kotlinx.coroutines.launch
 
 // Класс активности для отображения и редактирования деталей тренировки

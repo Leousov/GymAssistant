@@ -15,7 +15,7 @@ import com.example.gymassistant.A_workoutlist.CActivityWorkoutDetails
 import com.example.gymassistant.A_workoutlist.CRecyclerViewAdapterWorkout
 import com.example.gymassistant.A_workoutlist.getRandomString
 import com.example.gymassistant.databinding.ActivityMainBinding
-import com.example.gymassistant.viewmodel.CViewModelWorkoutList
+import com.example.gymassistant.viewmodel.workout.CViewModelWorkoutList
 import kotlinx.coroutines.launch
 
 // Основная активность приложения

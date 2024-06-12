@@ -10,7 +10,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.gymassistant.A_workoutlist.getRandomString
 import com.example.gymassistant.R
 import com.example.gymassistant.databinding.ActivityCexerciseDetailsBinding
-import com.example.gymassistant.viewmodel.CViewModelExerciseDetail
+import com.example.gymassistant.viewmodel.exercise.CViewModelExerciseDetail
 import kotlinx.coroutines.launch
 
 // Основной класс активности для отображения и редактирования деталей упражнения

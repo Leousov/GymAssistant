@@ -1,4 +1,4 @@
-package com.example.gymassistant.viewmodel
+package com.example.gymassistant.viewmodel.Session
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.gymassistant.model.CSession
 import com.example.gymassistant.repository.CRepositorySession
 import com.example.gymassistant.repository.CRepositoryWorkout
+import com.example.gymassistant.viewmodel.workout.orRandomString
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow

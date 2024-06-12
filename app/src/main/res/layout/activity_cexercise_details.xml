@@ -8,7 +8,7 @@
             type="com.example.gymassistant.model.CExercise" />
         <variable
             name="viewModel"
-            type="com.example.gymassistant.viewmodel.CViewModelExerciseDetail" />
+            type="com.example.gymassistant.viewmodel.exercise.CViewModelExerciseDetail" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

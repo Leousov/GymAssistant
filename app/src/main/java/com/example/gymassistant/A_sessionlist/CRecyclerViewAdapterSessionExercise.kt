@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gymassistant.databinding.SessionExerciseListItemBinding
 import com.example.gymassistant.model.CSessionExercise
-import com.example.gymassistant.viewmodel.CViewModelSessionExerciseList
+import com.example.gymassistant.viewmodel.Session.CViewModelSessionExerciseList
 
 // Адаптер для отображения списка упражнений в RecyclerView
 class CRecyclerViewAdapterSessionExercise(

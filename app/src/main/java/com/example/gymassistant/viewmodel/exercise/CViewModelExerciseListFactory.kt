@@ -1,18 +1,17 @@
-package com.example.gymassistant.viewmodel
+package com.example.gymassistant.viewmodel.exercise
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
-class CViewModelSessionExerciseListFactory(
+class CViewModelExerciseListFactory(
     private val application: Application,
-    private val workout_id: String,
-    private val session_id: String
+    private val workoutId: String
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(CViewModelSessionExerciseList::class.java)) {
-            return CViewModelSessionExerciseList(application, workout_id, session_id) as T
+        if (modelClass.isAssignableFrom(CViewModelExerciseList::class.java)) {
+            return CViewModelExerciseList(application, workoutId) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

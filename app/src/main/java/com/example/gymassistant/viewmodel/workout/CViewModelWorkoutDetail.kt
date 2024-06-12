@@ -1,4 +1,4 @@
-package com.example.gymassistant.viewmodel
+package com.example.gymassistant.viewmodel.workout
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

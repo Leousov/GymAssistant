@@ -1,10 +1,11 @@
-package com.example.gymassistant.viewmodel
+package com.example.gymassistant.viewmodel.exercise
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.gymassistant.model.CExercise
 import com.example.gymassistant.repository.CRepositoryExercise
+import com.example.gymassistant.viewmodel.workout.orRandomString
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
