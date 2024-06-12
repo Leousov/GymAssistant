@@ -5,13 +5,15 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.gymassistant.dao.IDAOExercise
+import com.example.gymassistant.dao.IDAOSession
 import com.example.gymassistant.dao.IDAOWorkout
 import com.example.gymassistant.model.CExercise
+import com.example.gymassistant.model.CSession
 import com.example.gymassistant.model.CWorkout
 
 // Аннотация @Database указывает, что это класс базы данных Room
 @Database(
-    entities = [CWorkout::class, CExercise::class], // Сущности, включенные в базу данных
+    entities = [CWorkout::class, CExercise::class, CSession::class], // Сущности, включенные в базу данных
     version = 1 // Версия базы данных
 )
 abstract class CDatabase : RoomDatabase() {
@@ -19,6 +21,7 @@ abstract class CDatabase : RoomDatabase() {
     // Абстрактные методы для получения DAO объектов
     abstract fun daoExercise(): IDAOExercise
     abstract fun daoWorkout(): IDAOWorkout
+    abstract fun daoSession(): IDAOSession
 
     // Компаньон-объект для реализации Singleton паттерна
     companion object {
