@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.gymassistant.model.CSession
 import com.example.gymassistant.repository.CRepositorySession
+import com.example.gymassistant.repository.CRepositoryWorkout
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,8 +20,11 @@ class CViewModelSessionDetail(
     application  : Application
 ) : AndroidViewModel(application)  {
     private val repositorySession  = CRepositorySession(application)
+    private val repositoryWorkout  = CRepositoryWorkout(application)
     val workout_id = MutableStateFlow("")
     val id = MutableStateFlow("")
+    val title = MutableStateFlow("")
+    val description = MutableStateFlow("")
     private val _initilized = MutableStateFlow(false)
     val initilized: StateFlow<Boolean>
             = _initilized.asStateFlow()
@@ -39,6 +43,14 @@ class CViewModelSessionDetail(
                 }
             }
             this@CViewModelSessionDetail.workout_id.update { workout_id }
+        }
+        viewModelScope.launch {
+            repositoryWorkout.getById(workout_id).collect { workout ->
+                workout?.let{
+                    this@CViewModelSessionDetail.title.update { workout.title.toString() }
+                    this@CViewModelSessionDetail.description.update { workout.text.toString() }
+                }
+            }
         }
         _initilized.update { true }
     }

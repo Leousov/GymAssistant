@@ -57,6 +57,7 @@ class CActivitySessionDetails : AppCompatActivity()  {
             }
         }
         binding.viewModel = viewModel
+//        binding.workout =
 
         // Создаем id, если его не было передано
         id = id ?: getRandomString(32)
