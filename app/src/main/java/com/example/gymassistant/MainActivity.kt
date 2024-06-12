@@ -14,6 +14,7 @@ import com.example.gymassistant.databinding.ActivityMainBinding
 import com.example.gymassistant.viewmodel.CViewModelWorkoutList
 import com.example.gymassistant.workoutlist.CActivityWorkoutDetails
 import com.example.gymassistant.workoutlist.CRecyclerViewAdapterWorkout
+import com.example.gymassistant.workoutlist.getRandomString
 import kotlinx.coroutines.launch
 
 // Основная активность приложения
@@ -28,8 +29,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater) // Инициализация биндинга
         setContentView(binding.root) // Установка содержимого экрана
-
-        // Создание начального набора данных для списка тренировок
+//
+//         Создание начального набора данных для списка тренировок
 //        val dataset = mutableListOf<CWorkout>(
 //            CWorkout("132", "Ноги", "комплекс упражнений на ноги", user_id),
 //            CWorkout("142", "Руки", "комплекс упражнений на руки", user_id),
@@ -51,7 +52,7 @@ class MainActivity : AppCompatActivity() {
             deleteListener = {workout ->
                 viewModel.deleteItem(workout)
             }
-            )
+        )
 
         // Настройка RecyclerView
         binding.Recycler1.adapter = listAdapter
@@ -107,6 +108,7 @@ class MainActivity : AppCompatActivity() {
         // Установка слушателя на кнопку для добавления новой тренировки
         binding.button1.setOnClickListener {
             val intent = Intent(this, CActivityWorkoutDetails::class.java)
+            intent.putExtra(getString(R.string.PARAM_ID), getRandomString(32))
             resultLauncher.launch(intent)
         }
 

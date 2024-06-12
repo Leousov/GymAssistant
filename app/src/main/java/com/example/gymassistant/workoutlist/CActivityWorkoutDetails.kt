@@ -97,9 +97,11 @@ class CActivityWorkoutDetails : AppCompatActivity() {
 
         // Обрабатываем нажатие кнопки "Удалить тренировку"
         binding.buttonDeleteWorkout.setOnClickListener {
-            val intent = Intent()
-            intent.putExtra("id", id.toString())
-            setResult(RESULT_CANCELED, intent)
+//            val intent = Intent()
+//            intent.putExtra("id", id.toString())
+//            setResult(RESULT_CANCELED, intent)
+            if (!viewModel.delete())
+                return@setOnClickListener
             finish() // Закрываем активность
         }
 

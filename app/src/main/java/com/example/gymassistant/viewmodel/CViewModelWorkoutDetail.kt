@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.gymassistant.model.CWorkout
 import com.example.gymassistant.repository.CRepositoryWorkout
+import com.example.gymassistant.workoutlist.getRandomString
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,6 +16,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+val StateFlow<String>.orRandomString: String
+    get() = if (value.isEmpty()) getRandomString(32) else value
 class CViewModelWorkoutDetail(
     application  : Application
 ) : AndroidViewModel(application) {
@@ -37,6 +40,7 @@ class CViewModelWorkoutDetail(
     viewModelScope.launch {
         repositoryWorkout.getById(id).collect { workout ->
                 workout?.let{
+                    this@CViewModelWorkoutDetail.id.update { workout.id.toString() }
                     this@CViewModelWorkoutDetail.text.update { workout.text.toString() }
                     this@CViewModelWorkoutDetail.title.update { workout.title.toString() }
                     this@CViewModelWorkoutDetail.user_id.update { workout.user_id.toString() }
@@ -51,9 +55,23 @@ class CViewModelWorkoutDetail(
         kotlinx.coroutines.MainScope().launch {
             repositoryWorkout.insert(
                 CWorkout(
-                    id.value,
-                    text.value,
+                    id.orRandomString,
                     title.value,
+                    text.value,
+                    user_id.value,
+                )
+            )
+        }
+        return true
+    }
+    fun delete(): Boolean {
+        // Вызвать удаление из БД.
+        kotlinx.coroutines.MainScope().launch {
+            repositoryWorkout.delete(
+                CWorkout(
+                    id.value,
+                    title.value,
+                    text.value,
                     user_id.value,
                 )
             )
