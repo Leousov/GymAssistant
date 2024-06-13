@@ -80,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number|numberDecimal"
-                app:mutableStateFlowText="@={viewModel.duration}" />
+                android:text="@={viewModel.duration}"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -98,7 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number|numberDecimal"
-                app:mutableStateFlowText="@={viewModel.num_sets}" />
+                android:text="@={viewModel.num_sets}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -116,7 +116,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number|numberSigned"
-                app:mutableStateFlowText="@={viewModel.weight}" />
+                android:text="@={viewModel.weight}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -134,7 +134,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number|numberDecimal"
-                app:mutableStateFlowText="@={viewModel.times_per_set}"/>
+                android:text="@={viewModel.times_per_set}"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 

@@ -24,10 +24,10 @@ class CViewModelExerciseDetail(
     val workout_id = MutableStateFlow("")
     val name = MutableStateFlow("")
     val description = MutableStateFlow("")
-    val duration = MutableStateFlow(-1)
-    val num_sets = MutableStateFlow(-1)
-    val weight = MutableStateFlow(-1)
-    val times_per_set = MutableStateFlow(-1)
+    val duration = MutableStateFlow("")
+    val num_sets = MutableStateFlow("")
+    val weight = MutableStateFlow("")
+    val times_per_set = MutableStateFlow("")
 
     private val _initilized = MutableStateFlow(false)
     val initilized: StateFlow<Boolean>
@@ -38,6 +38,7 @@ class CViewModelExerciseDetail(
     )
     val message: SharedFlow<Int>
             = _message.asSharedFlow()
+
     fun setItem(id: String, workout_id: String){
     viewModelScope.launch {
         repositoryExercise.getById(id).collect { exercise ->
@@ -46,15 +47,17 @@ class CViewModelExerciseDetail(
                     this@CViewModelExerciseDetail.workout_id.update { exercise.workout_id.toString() }
                     this@CViewModelExerciseDetail.name.update { exercise.name.toString() }
                     this@CViewModelExerciseDetail.description.update { exercise.description.toString() }
-                    this@CViewModelExerciseDetail.duration.update { exercise.duration!! }
-                    this@CViewModelExerciseDetail.num_sets.update { exercise.num_sets!! }
-                    this@CViewModelExerciseDetail.weight.update { exercise.weight!! }
-                    this@CViewModelExerciseDetail.times_per_set.update { exercise.times_per_set!! }
+                    this@CViewModelExerciseDetail.duration.update { exercise.duration!!.toString() }
+                    this@CViewModelExerciseDetail.num_sets.update { exercise.num_sets!!.toString() }
+                    this@CViewModelExerciseDetail.weight.update { exercise.weight!!.toString() }
+                    this@CViewModelExerciseDetail.times_per_set.update { exercise.times_per_set!!.toString() }
+
+                    _initilized.update { true }
                 }
             }
         }
-        this@CViewModelExerciseDetail.workout_id.update { workout_id }
-        _initilized.update { true }
+//        this@CViewModelExerciseDetail.workout_id.update { workout_id }
+
     }
     fun save(): Boolean
     {
@@ -66,10 +69,10 @@ class CViewModelExerciseDetail(
                     workout_id.value,
                     name.value,
                     description.value,
-                    duration.value,
-                    num_sets.value,
-                    weight.value,
-                    times_per_set.value
+                    duration.value.toInt(),
+                    num_sets.value.toInt(),
+                    weight.value.toInt(),
+                    times_per_set.value.toInt()
                 )
             )
         }
@@ -84,10 +87,10 @@ class CViewModelExerciseDetail(
                     workout_id.value,
                     name.value,
                     description.value,
-                    duration.value,
-                    num_sets.value,
-                    weight.value,
-                    times_per_set.value
+                    duration.value.toInt(),
+                    num_sets.value.toInt(),
+                    weight.value.toInt(),
+                    times_per_set.value.toInt()
                 )
             )
         }
