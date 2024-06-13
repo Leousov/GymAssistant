@@ -21,6 +21,9 @@ class CRepositorySessionExercise (
     fun getExercisesByWorkoutId(workout_id: String): Flow<List<CSessionExercise>> {
         return daoSessionExercise.getExercisesByWorkoutId(workout_id)
     }
+    fun getByExerciseID(exercise_id: String): Flow<List<CSessionExercise>> {
+        return daoSessionExercise.getByExerciseID(exercise_id)
+    }
     fun generateExercisesByWorkoutId(workout_id: String, session_id: String): Flow<List<CSessionExercise>> {
         return daoSessionExercise.generateExercisesByWorkoutId(workout_id, session_id)
     }

@@ -15,9 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gymassistant.A_workoutlist.getRandomString
 import com.example.gymassistant.R
 import com.example.gymassistant.databinding.ActivityCsessionDetailsBinding
-import com.example.gymassistant.viewmodel.Session.CViewModelSessionDetail
-import com.example.gymassistant.viewmodel.Session.CViewModelSessionExerciseList
-import com.example.gymassistant.viewmodel.Session.CViewModelSessionExerciseListFactory
+import com.example.gymassistant.viewmodel.session.CViewModelSessionDetail
+import com.example.gymassistant.viewmodel.session.CViewModelSessionExerciseList
+import com.example.gymassistant.viewmodel.session.CViewModelSessionExerciseListFactory
 import kotlinx.coroutines.launch
 
 class CActivitySessionDetails : AppCompatActivity()  {

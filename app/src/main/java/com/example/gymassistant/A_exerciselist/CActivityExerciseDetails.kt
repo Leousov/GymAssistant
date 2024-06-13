@@ -1,13 +1,17 @@
 package com.example.gymassistant.A_exerciselist
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.gymassistant.A_workoutlist.getRandomString
+import com.example.gymassistant.ChartActivity
 import com.example.gymassistant.R
 import com.example.gymassistant.databinding.ActivityCexerciseDetailsBinding
 import com.example.gymassistant.viewmodel.exercise.CViewModelExerciseDetail
@@ -19,6 +23,7 @@ class CActivityExerciseDetails : AppCompatActivity() {
     private var workout_id: String? = null // Идентификатор тренировки
     private lateinit var binding: ActivityCexerciseDetailsBinding // Переменная для биндинга
     private val viewModel  : CViewModelExerciseDetail by viewModels() // Модель представления для упражнения
+    lateinit var resultLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,6 +83,17 @@ class CActivityExerciseDetails : AppCompatActivity() {
                 return@setOnClickListener
             finish() // Закрываем активность
         }
+        binding.buttonGraf.setOnClickListener {
+            val intent = Intent(this, ChartActivity::class.java)
+            intent.putExtra(getString(R.string.PARAM_ID), id)
+            resultLauncher.launch(intent)
+        }
+
+        resultLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+        }
+
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.message.collect { stringId ->

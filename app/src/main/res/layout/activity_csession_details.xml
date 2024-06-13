@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.gymassistant.viewmodel.Session.CViewModelSessionDetail" />
+            type="com.example.gymassistant.viewmodel.session.CViewModelSessionDetail" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

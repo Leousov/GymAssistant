@@ -1,4 +1,4 @@
-package com.example.gymassistant.viewmodel.Session
+package com.example.gymassistant.viewmodel.session
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

@@ -23,6 +23,8 @@ interface IDAOSessionExercise {
     ): Flow<CSessionExercise>
     @Query("SELECT * FROM session_exercise WHERE workout_id = :workout_id")
     fun getExercisesByWorkoutId(workout_id: String): Flow<List<CSessionExercise>>
+    @Query("SELECT * FROM session_exercise WHERE id = :exercise_id")
+    fun getByExerciseID(exercise_id: String): Flow<List<CSessionExercise>>
     @Query("""select 
 p.id, 
 :session_id as session_id, 

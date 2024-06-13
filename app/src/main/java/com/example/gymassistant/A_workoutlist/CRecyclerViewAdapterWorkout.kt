@@ -10,7 +10,7 @@ import com.example.gymassistant.model.CWorkout
 
 // Адаптер для отображения списка тренировок в RecyclerView
 class CRecyclerViewAdapterWorkout(
-    private val clickListener: (land : CWorkout?) -> Unit,
+    private val clickListener: (workout : CWorkout?) -> Unit,
     private val sessionListener: (id: String) -> Unit
 ) : ListAdapter<CWorkout, CRecyclerViewAdapterWorkout.ViewHolder>(WorkoutDiffCallback()) {
 
