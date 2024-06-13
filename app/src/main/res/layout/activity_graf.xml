@@ -19,7 +19,9 @@
             android:id="@+id/grafTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.title}" />
+            android:text="@{viewModel.title}"
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/lineChart"

@@ -3,6 +3,7 @@ package com.example.gymassistant.viewmodel.session
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.gymassistant.A_workoutlist.getRandomString
 import com.example.gymassistant.model.CSessionExercise
 import com.example.gymassistant.repository.CRepositorySessionExercise
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,6 +27,9 @@ class CViewModelSessionExerciseList(
             repositorySessionExercise
                 .generateExercisesByWorkoutId(workout_id, session_id)
                 .collect {newItems->
+                    for (x in newItems){
+                        x.id = getRandomString(32)
+                    }
                     itemsFlow.update { newItems }
                     repositorySessionExercise.insertAll(newItems)
                 }

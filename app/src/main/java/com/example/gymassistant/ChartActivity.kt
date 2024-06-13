@@ -2,6 +2,7 @@ package com.example.gymassistant
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +16,9 @@ import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ChartActivity : AppCompatActivity() {
     private var id: String? = null // Идентификатор упражнения
@@ -53,35 +56,72 @@ class ChartActivity : AppCompatActivity() {
 
         val lineChart = binding.lineChart
 
-        val entries = mutableListOf<Entry>()
+        val entries1 = mutableListOf<Entry>() //sets_done
+        val entries2 = mutableListOf<Entry>() //weight
+        val entries3 = mutableListOf<Entry>() //duration
+        val entries4 = mutableListOf<Entry>() //times_per_set
+        lifecycleScope.launch {
+            viewModel.getExercises(id!!).collect { exercisesList ->
+                var i = 0.0
+                for (exercise in exercisesList) {
+                    entries1.add(Entry(i.toFloat(), exercise.sets_done!!.toFloat()))
+                    entries2.add(Entry(i.toFloat(), exercise.weight!!.toFloat()))
+                    entries3.add(Entry(i.toFloat(), exercise.duration!!.toFloat()))
+                    entries4.add(Entry(i.toFloat(), exercise.times_per_set!!.toFloat()))
+                    Log.d("MyApp", "" +i+" "+ exercise.sets_done+" "+ exercise.weight +" "+exercise.duration +" "+exercise.times_per_set)
+                    i += 1.0
+                }
+                withContext(Dispatchers.Main) {
+                    val dataSet1 = LineDataSet(entries1, "Сделано подходов")
+                    val dataSet2 = LineDataSet(entries2, "Вес")
+                    val dataSet3 = LineDataSet(entries3, "Продолжительность")
+                    val dataSet4 = LineDataSet(entries4, "Повторений в подходе")
 
+                    dataSet1.color = Color.RED
+                    dataSet2.color = Color.BLUE
+                    dataSet3.color = Color.GREEN
+                    dataSet4.color = Color.MAGENTA
 
-        // Добавляем точки на график (пример данных)
-        entries.add(Entry(0f, 1f))
-        entries.add(Entry(1f, 2f))
-        entries.add(Entry(2f, 0f))
-        entries.add(Entry(3f, 4f))
-        entries.add(Entry(4f, 3f))
+                    dataSet1.lineWidth = 2f
+                    dataSet2.lineWidth = 2f
+                    dataSet3.lineWidth = 2f
+                    dataSet4.lineWidth = 2f
 
-        val dataSet = LineDataSet(entries, "Пример данных")
-        dataSet.color = Color.BLUE
-        dataSet.valueTextColor = Color.BLACK
+                    dataSet1.valueTextSize = 12f
+                    dataSet2.valueTextSize = 12f
+                    dataSet3.valueTextSize = 12f
+                    dataSet4.valueTextSize = 12f
 
-        val lineData = LineData(dataSet)
-        lineChart.data = lineData
+                    dataSet1.valueTextColor = Color.BLACK
+                    dataSet2.valueTextColor = Color.BLACK
+                    dataSet3.valueTextColor = Color.BLACK
+                    dataSet4.valueTextColor = Color.BLACK
 
-        // Настройка осей
-        val xAxis: XAxis = lineChart.xAxis
-        xAxis.position = XAxis.XAxisPosition.BOTTOM
+                    val lineData = LineData(dataSet1, dataSet2, dataSet3, dataSet4)
+                    lineChart.data = lineData
 
-        val yAxisLeft: YAxis = lineChart.axisLeft
-        yAxisLeft.setDrawGridLines(false)
+                    // Увеличение шрифта для осей
+                    lineChart.xAxis.textSize = 14f
+                    lineChart.axisLeft.textSize = 14f
+                    lineChart.axisRight.textSize = 14f
 
-        val yAxisRight: YAxis = lineChart.axisRight
-        yAxisRight.isEnabled = false
+                    // Настройка осей
+                    val xAxis: XAxis = lineChart.xAxis
+                    xAxis.position = XAxis.XAxisPosition.BOTTOM
 
-        // Обновляем график
-        lineChart.invalidate()
+                    val yAxisLeft: YAxis = lineChart.axisLeft
+                    yAxisLeft.setDrawGridLines(false)
+
+                    val yAxisRight: YAxis = lineChart.axisRight
+                    yAxisRight.isEnabled = false
+
+                    // Увеличение шрифта для легенды (если есть)
+                    lineChart.legend.textSize = 14f
+                    // Обновляем график
+                    lineChart.invalidate()
+                }
+            }
+        }
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {

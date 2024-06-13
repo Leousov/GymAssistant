@@ -11,6 +11,9 @@ data class CSessionExercise(
     var id: String = "", // Идентификатор упражнения (первичный ключ)
 
     @ColumnInfo
+    var exercise_id: String? = "",
+
+    @ColumnInfo
     var session_id: String? = "",
 
     @ColumnInfo

@@ -17,16 +17,17 @@ interface IDAOSessionExercise {
     fun getAll(): Flow<List<CSessionExercise>>
 
     // Функция для получения упражнения по его ID
-    @Query("SELECT * FROM session_exercise WHERE id = :id")
+    @Query("SELECT * FROM session_exercise WHERE exercise_id = :id")
     fun getById(
         id: String
     ): Flow<CSessionExercise>
     @Query("SELECT * FROM session_exercise WHERE workout_id = :workout_id")
     fun getExercisesByWorkoutId(workout_id: String): Flow<List<CSessionExercise>>
-    @Query("SELECT * FROM session_exercise WHERE id = :exercise_id")
+    @Query("SELECT * FROM session_exercise WHERE exercise_id = :exercise_id")
     fun getByExerciseID(exercise_id: String): Flow<List<CSessionExercise>>
     @Query("""select 
-p.id, 
+"a" as id,
+p.id as exercise_id, 
 :session_id as session_id, 
 :workout_id as workout_id,
 p.name,
